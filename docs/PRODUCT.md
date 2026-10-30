@@ -68,4 +68,4 @@ DorisRAG V1 是运行在本机的小型 Apache Doris 中文官方文档知识问
 
 速度目标是减少无必要链路，记录接受反馈、完整耗时、理解/检索/生成及调用次数，冷热启动分开；没有已签定的数字 SLA。原契约“复杂材料至多一次分析”与当前最多一次校验失败重提取存在差异；不明确多轮关系还可能单独调用一次关系识别。该实现与代价见 [技术设计](TECHNICAL_DESIGN.md)及 [决策记录](DECISIONS.md)，不写成所有问题固定一次调用。
 
-正式验收沿用 [22 张案例卡](../eval/V1_FINAL_ACCEPTANCE_20261024.md)、[冲突判据](../eval/V1_ACCEPTANCE_CLARIFICATIONS_20261024.md)及原始连续会话。要求真实 HTTP/UI/LLM/Dense、答案和实际送模证据、版本隔离、长会话、异常与时间记录；离线组件通过不能代替。三轮停止规则、未通过项及 V2 独立验收见 [质量文档](QUALITY.md)。
+正式验收沿用 [22 张原始验收案例](../eval/v1_final_acceptance_20261024.json)、[冲突判据](../eval/V1_ACCEPTANCE_CLARIFICATIONS_20261024.md)及原始连续会话。要求真实 HTTP/UI/LLM/Dense、答案和实际送模证据、版本隔离、长会话、异常与时间记录；离线组件通过不能代替。三轮停止规则、未通过项及 V2 独立验收见 [质量文档](QUALITY.md)。

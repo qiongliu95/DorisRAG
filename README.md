@@ -41,7 +41,9 @@ LLM_MODEL=你的模型名称
 
 ## 开发与测试
 
-[项目文档](docs/README.md)、[资源说明](docs/LOCAL_ASSETS.md)、[评测规则](eval/README.md)、[回归约束](AGENTS.md)。
+[产品说明](docs/PRODUCT.md)、[技术设计](docs/TECHNICAL_DESIGN.md)、[资源说明](docs/LOCAL_ASSETS.md)、[评测规则](eval/README.md)。
+
+修改 Session、查询理解、检索、上下文或生成任务契约后，执行完整离线回归；不修改 Gold 或降低断言。
 
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests -p test_generation_task_contract.py -v
@@ -52,4 +54,4 @@ LLM_MODEL=你的模型名称
 
 ## 来源与许可
 
-Doris 文档来自 Apache Doris 官网快照，发行包保留其 LICENSE；BGE-base-zh-v1.5 官方模型卡标注 MIT，随资源保留模型卡。来源分别见 [Apache Doris](https://github.com/apache/doris-website) 与 [BAAI 模型](https://huggingface.co/BAAI/bge-base-zh-v1.5)。本项目代码尚未指定开源许可证，历史材料整理范围见 [ARCHIVE.md](ARCHIVE.md)。
+Doris 文档来自 Apache Doris 官网快照，发行包保留其 LICENSE；BGE-base-zh-v1.5 官方模型卡标注 MIT，随资源保留模型卡。来源分别见 [Apache Doris](https://github.com/apache/doris-website) 与 [BAAI 模型](https://huggingface.co/BAAI/bge-base-zh-v1.5)。本项目代码尚未指定开源许可证。

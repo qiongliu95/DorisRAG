@@ -6,4 +6,4 @@
 
 `deployment/restore_runtime.py` 只修改来源路径字段，重新计算受路径影响的文件哈希和构建标识，并实际执行原有 `tests/check_knowledge_build.py`。清洗/切分验证记录注明其继承来源；运行验收不是回答质量验收。
 
-安装不需要完整网站源码、网站依赖、原网站 ZIP 或全量历史报告。完整 unittest discovery 中引用历史评测输入与原始 Trace 的测试仍需项目本地归档，见 ARCHIVE.md；这类资料不属于产品启动依赖。
+安装不需要完整网站源码、网站依赖、原网站 ZIP 或全量历史报告。完整 unittest discovery 中引用历史评测输入与原始 Trace 的测试仍需项目本地归档；这类资料不属于产品启动依赖。
