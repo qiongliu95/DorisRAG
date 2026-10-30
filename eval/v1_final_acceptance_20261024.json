@@ -1,0 +1,1083 @@
+{
+  "name": "DorisRAG V1最终验收案例索引",
+  "created_at": "2026-10-24T11:51:11+08:00",
+  "scope": "复用已有案例和审阅，未重新生成题目、联网研究或调用模型。只有明确标记的人工改写/组合。",
+  "case_count": 22,
+  "source_snapshot": {
+    "eval/cases.jsonl": "d5ca2d1cf8b88bb97ce2d3a0bda0bfd07d0d8113e677d3ad103face377ef1fcc",
+    "eval/holdout_cases.jsonl": "733fb2a7d8819441c9d47f4aa819c710363a76d4ac41d7653ccdb4881fb4de08",
+    "eval/round2_cases.jsonl": "13ca198c3c3d2e5e0a436be8a1c60cfa8db9f708033080ba659f51d156f56be5",
+    "experiments/coverage_audit_20261023/evidence.json": "93c4932a7dddec8fa30565feb873829ac5d69358d182c5628ca6a7162bf22295",
+    "experiments/coverage_audit_20261023/source_review.json": "63b1f05ecdd6ab3d4a3ba8adebbc94805b078c910f8f68e789194ef39b15a077",
+    "experiments/ragas_20261023/final_run/questions.json": "d3758fd048dc90ff7c58f35bfe18d420970060228d99e4daf36a7d95fa28cc74",
+    "experiments/ragas_20261023/final_run/evidence_map.json": "0309aca518df43d44b5955cff3155e5c028f8ecbc257e915710ee54c05645ba3"
+  },
+  "global_judgment": [
+    "不沿用旧small/512维或Ragas参考答案当新768维验收成绩",
+    "默认4.x与指定范围优先于历史案例元数据中的all",
+    "原帖只校准场景，不作为产品事实；产品规则从允许版本官方本地文档查证",
+    "按当次原文、条件、位置和版本审阅，引用/格式/关键词通过不是语义正确",
+    "未就绪、服务失败、运行态缺失与可靠地说明证据不足必须分别记录；不设未确认时间SLA"
+  ],
+  "cases": [
+    {
+      "id": "A01",
+      "title": "短函数与最小示例",
+      "inputs": [
+        {
+          "input_ref": {
+            "file": "eval/cases.jsonl",
+            "id": "pi4",
+            "field": "question"
+          }
+        }
+      ],
+      "expected_scope": [
+        "4.x"
+      ],
+      "origins": [
+        {
+          "file": "eval/cases.jsonl",
+          "id": "pi4"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-4.x/sql-manual/sql-functions/scalar-functions/numeric-functions/pi.md",
+          "source_version": "4.x",
+          "sha256": "4bd3c55bff22ce1daf9afbc4b2e8625d6247b38d858edf359bc856c4abcda98b"
+        }
+      ],
+      "pass_conditions": [
+        "未给版本时只取4.x；无固定版本澄清表单",
+        "给出Pi及文档数值3.141592653589793，示例和引用可追溯",
+        "简单链路不额外做LLM拆解"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A02",
+      "title": "单版本参数默认值",
+      "inputs": [
+        {
+          "input_ref": {
+            "file": "eval/round2_cases.jsonl",
+            "id": "single_version",
+            "field": "question"
+          }
+        }
+      ],
+      "expected_scope": [
+        "3.x"
+      ],
+      "origins": [
+        {
+          "file": "eval/round2_cases.jsonl",
+          "id": "single_version"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-3.x/admin-manual/config/fe-config.md",
+          "source_version": "3.x",
+          "sha256": "d44d2e7d9e9097c303b6112d2c93b020f21f1e0fa4b0ae28f3766546c5218b96"
+        }
+      ],
+      "pass_conditions": [
+        "只检索3.x，不夹带2.1/4.x",
+        "默认值5和适用条件来自对应FE章节"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A03",
+      "title": "明确跨版本比较",
+      "inputs": [
+        {
+          "input_ref": {
+            "file": "eval/round2_cases.jsonl",
+            "id": "comparison",
+            "field": "question"
+          }
+        }
+      ],
+      "expected_scope": [
+        "2.1",
+        "3.x"
+      ],
+      "origins": [
+        {
+          "file": "eval/round2_cases.jsonl",
+          "id": "comparison"
+        },
+        {
+          "file": "eval/cases.jsonl",
+          "id": "compare_rl"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-2.1/admin-manual/config/fe-config.md",
+          "source_version": "2.1",
+          "sha256": "199571dc2b9f3a6ba3cd63d51f9aa634ec4f5a7f54c32d0b150e0c540be80886"
+        },
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-3.x/admin-manual/config/fe-config.md",
+          "source_version": "3.x",
+          "sha256": "d44d2e7d9e9097c303b6112d2c93b020f21f1e0fa4b0ae28f3766546c5218b96"
+        }
+      ],
+      "pass_conditions": [
+        "分别引用2.1与3.x，不混写成全局默认值",
+        "2.1.4起1024与3.x的5分别有证据；不覆盖所有补丁"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A04",
+      "title": "日志与保留旧示例的补丁边界",
+      "inputs": [
+        {
+          "input_ref": {
+            "file": "eval/round2_cases.jsonl",
+            "id": "scenario_upload",
+            "field": "question"
+          }
+        },
+        {
+          "input_ref": {
+            "file": "eval/round2_cases.jsonl",
+            "id": "scenario_long_log",
+            "field": "question"
+          }
+        }
+      ],
+      "expected_scope": [
+        "4.x"
+      ],
+      "origins": [
+        {
+          "file": "eval/round2_cases.jsonl",
+          "id": "scenario_upload"
+        },
+        {
+          "file": "eval/holdout_cases.jsonl",
+          "id": "upload_patch_boundary"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-4.x/admin-manual/open-api/fe-http/upload-action.md",
+          "source_version": "4.x",
+          "sha256": "e894b85968a177f74cafc9c103a40bbe5a8137633d609a6a9e183fa8fe79c1a5"
+        }
+      ],
+      "pass_conditions": [
+        "保留4.1.4移除规则，旧POST示例不覆盖警告",
+        "用户404与文档规则只能形成有前提推论，不能认定集群根因",
+        "缺少的信息明确指出，不重复追问已给版本",
+        "长日志提取为少量短知识子问题，事实可回原句；不能静默截断整份材料作Dense输入"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "variants"
+    },
+    {
+      "id": "A05",
+      "title": "目录版本不等于适用性",
+      "inputs": [
+        {
+          "input_ref": {
+            "file": "eval/round2_cases.jsonl",
+            "id": "scenario_config",
+            "field": "question"
+          }
+        }
+      ],
+      "expected_scope": [
+        "2.1"
+      ],
+      "origins": [
+        {
+          "file": "eval/round2_cases.jsonl",
+          "id": "scenario_config"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-2.1/lakehouse/catalogs/hive-catalog.mdx",
+          "source_version": "2.1",
+          "sha256": "b82c77a6be83a7485224efa5fa9fe3266c0589446bdc02e66f663374752a2057"
+        }
+      ],
+      "pass_conditions": [
+        "只取2.1来源，保留正文自3.0.2支持条件",
+        "不因目录认定2.1支持，也不自动改查3.x",
+        "不能据材料证明集群故障"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A06",
+      "title": "组合配置与关联说明",
+      "inputs": [
+        {
+          "input_ref": {
+            "file": "eval/round2_cases.jsonl",
+            "id": "scenario_two_constraints",
+            "field": "question"
+          }
+        },
+        {
+          "input_ref": {
+            "file": "eval/round2_cases.jsonl",
+            "id": "scenario_sql",
+            "field": "question"
+          }
+        }
+      ],
+      "expected_scope": [
+        "4.x"
+      ],
+      "origins": [
+        {
+          "file": "eval/round2_cases.jsonl",
+          "id": "scenario_two_constraints"
+        },
+        {
+          "file": "eval/round2_cases.jsonl",
+          "id": "scenario_sql"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-4.x/sql-manual/basic-element/sql-data-types/semi-structured/variant-workload-guide.md",
+          "source_version": "4.x",
+          "sha256": "e8fd27aff5ee79f9d28b3431414d510ba13d4551503efca77c27443d3d363bf7"
+        }
+      ],
+      "pass_conditions": [
+        "解释DOC mode与Sparse互斥，保留条件与原文",
+        "区分用户配置、规则与推论；不能声称执行过SQL",
+        "若改用已有scenario_sql变体，推荐storage_format=V3不能冒充强制要求，未有证据的表级配置支持应说明未知"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "variants"
+    },
+    {
+      "id": "A07",
+      "title": "新增变量及Scanner例外",
+      "inputs": [
+        {
+          "input": "Doris 4.1.4 中 enable_expr_zonemap_filter 控制什么？File Scanner V2 受它影响吗？",
+          "adapted_from": "Q05"
+        }
+      ],
+      "expected_scope": [
+        "4.x"
+      ],
+      "origins": [
+        {
+          "file": "experiments/ragas_20261023/final_run/questions.json",
+          "id": "Q05"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-4.x/sql-manual/basic-element/session-variables.md",
+          "source_version": "4.x",
+          "sha256": "67f2040a9b52dff9fc6e47377380a62f0502b0ab7f6d89028d0da0b2b2fb9a3e"
+        }
+      ],
+      "pass_conditions": [
+        "结合正文核对Boolean、false及4.1.4新增条件",
+        "保留File Scanner V2例外，不把条件丢掉"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "Ragas题目经人工收窄，参考答案不作为真值；最终需Dense查证。",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A08",
+      "title": "参数零值和负值边界",
+      "inputs": [
+        {
+          "input": "Doris 4.1.4 的 runtime_filter_tree_publish_max_send_bytes 默认值是什么，设0或负数分别怎样？",
+          "adapted_from": "Q06"
+        }
+      ],
+      "expected_scope": [
+        "4.x"
+      ],
+      "origins": [
+        {
+          "file": "experiments/ragas_20261023/final_run/questions.json",
+          "id": "Q06"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-4.x/sql-manual/basic-element/session-variables.md",
+          "source_version": "4.x",
+          "sha256": "67f2040a9b52dff9fc6e47377380a62f0502b0ab7f6d89028d0da0b2b2fb9a3e"
+        }
+      ],
+      "pass_conditions": [
+        "正文核对默认268435456、0关闭树形分发、负数非法",
+        "保留4.1.4新增条件，不用Ragas参考替代来源"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A09",
+      "title": "JDBC与向量Prepared Statement跨文档",
+      "inputs": [
+        {
+          "input": "Doris 4.x 通过 MySQL JDBC 连接时，向量查询如何使用 Prepared Statement？哪些相关命令不能直接用 mysql 客户端执行，连接参数怎么写？",
+          "adapted_from": "Q19"
+        }
+      ],
+      "expected_scope": [
+        "4.x"
+      ],
+      "origins": [
+        {
+          "file": "experiments/ragas_20261023/final_run/questions.json",
+          "id": "Q19"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-4.x/connection-integration/mysql-proto.mdx",
+          "source_version": "4.x",
+          "sha256": "ec8e1e7249ec35170410b39b7ca8f3b9712edf093e7765be4e5e8009d902cdfd"
+        },
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-4.x/table-design/index/vector-index/overview.md",
+          "source_version": "4.x",
+          "sha256": "56cc1533425eb2d69a2b257d4ba9694298c0c06c2d32a74dd09bf1b1c4f90c19"
+        }
+      ],
+      "pass_conditions": [
+        "连接方式和向量Prepared Statement分别有文档依据",
+        "useServerPrepStmts=true、占位符与方法须查正文；不能把mysql客户端的特定命令限制泛化到所有SQL",
+        "代码或表格补取不完整时，不伪装完整可执行步骤"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A10",
+      "title": "原文性能示例不能承诺收益",
+      "inputs": [
+        {
+          "input": "比较 Doris 2.1 和3.x 的 NGram BloomFilter 使用条件。文档示例从7.60秒到0.93秒，是否能保证我的查询也快8倍？",
+          "adapted_from": "Q14"
+        }
+      ],
+      "expected_scope": [
+        "2.1",
+        "3.x"
+      ],
+      "origins": [
+        {
+          "file": "experiments/ragas_20261023/final_run/questions.json",
+          "id": "Q14"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-3.x/table-design/index/ngram-bloomfilter-index.md",
+          "source_version": "3.x",
+          "sha256": "aa5ddb46bfd73dff243450e65f1419962aeb8dd9042a1b504f51f08516bdf7cd"
+        },
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-2.1/table-design/index/ngram-bloomfilter-index.md",
+          "source_version": "2.1",
+          "sha256": "6f92214e8557f1994004bde473c4cc168129defcb66403a3f047260286bce717"
+        }
+      ],
+      "pass_conditions": [
+        "保留版本及适用条件，重复段不算额外推理证据",
+        "7.60/0.93只作为文档实验示例，不能保证用户性能",
+        "不把这组数字计作DorisRAG响应耗时"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A11",
+      "title": "有相关知识但缺兼容操作步骤",
+      "inputs": [
+        {
+          "input_ref": {
+            "file": "experiments/ragas_20261023/final_run/questions.json",
+            "id": "Q21",
+            "field": "user_input"
+          }
+        }
+      ],
+      "expected_scope": [
+        "4.x"
+      ],
+      "origins": [
+        {
+          "file": "experiments/ragas_20261023/final_run/questions.json",
+          "id": "Q21"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-4.x/table-design/index/inverted-index/overview.md",
+          "source_version": "4.x",
+          "sha256": "27be0f19345c3c96784280d8f71d1e5d0aa71dd3cd11b89571c5e7ea0ea37e41"
+        },
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-4.x/table-design/index/vector-index/overview.md",
+          "source_version": "4.x",
+          "sha256": "56cc1533425eb2d69a2b257d4ba9694298c0c06c2d32a74dd09bf1b1c4f90c19"
+        }
+      ],
+      "pass_conditions": [
+        "已证实的功能引入可按证据说明",
+        "缺少ANN与BM25升级兼容步骤时说明不足，不编造开关或命令",
+        "不足不自动去3.x/2.1搜答案"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A12",
+      "title": "社区：部分列更新条件与修复未知",
+      "inputs": [
+        {
+          "input": "Doris 3.1，Unique Key MoW 的 Routine Load 配了 partial_columns=true，消息只有 id 和 age，COLUMNS 却声明全部列，其他列变成NULL。文档能解释哪些条件？能确定是Bug或哪版已修复吗？",
+          "adapted_from": "C01"
+        }
+      ],
+      "expected_scope": [
+        "3.x"
+      ],
+      "origins": [
+        {
+          "file": "experiments/coverage_audit_20261023/evidence.json",
+          "id": "C01"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-3.x/data-operate/update/partial-column-update.md",
+          "source_version": "3.x",
+          "lines": [
+            54,
+            71
+          ],
+          "sha256": "70a799096f80096b8cd57b1bcb3ab9d6f0aa1e959a5968321be001c0ba239a09",
+          "supports": "部分列更新必须同时指定列集合和全部Key的操作要求",
+          "evidence_id": "C01-E01"
+        },
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-3.x/data-operate/update/partial-column-update.md",
+          "source_version": "3.x",
+          "lines": [
+            123,
+            137
+          ],
+          "sha256": "70a799096f80096b8cd57b1bcb3ab9d6f0aa1e959a5968321be001c0ba239a09",
+          "supports": "固定列更新的批次列集合约束、灵活更新3.1起且该页限定Stream Load",
+          "evidence_id": "C01-E02"
+        }
+      ],
+      "pass_conditions": [
+        "保留缺失字段与显式NULL的区别；检查Key与更新列、列映射",
+        "不能把4.x后续支持倒推3.1补丁，也不能把PR合并或Stale关闭当已发布修复"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "使用2026-10-23已完成的原帖核查和纠偏，输入是整理后的保真场景，不是原帖逐字引文；本轮不重新联网。",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A13",
+      "title": "社区：内存指标与根因边界",
+      "inputs": [
+        {
+          "input": "Doris 2.1.1 查询结束后BE内存没降，Memory Tracker与RSS不一致并出现OOM。能直接断定是内存泄漏吗？需要哪些证据？",
+          "adapted_from": "C05"
+        }
+      ],
+      "expected_scope": [
+        "2.1"
+      ],
+      "origins": [
+        {
+          "file": "experiments/coverage_audit_20261023/evidence.json",
+          "id": "C05"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-2.1/admin-manual/trouble-shooting/memory-management/memory-feature/memory-tracker.md",
+          "source_version": "2.1",
+          "lines": [
+            17,
+            25
+          ],
+          "sha256": "d76b633986420bf89115b65e05fb1baa95ab781957f4308970e159f8e92dd95e",
+          "supports": "Tracker子集、虚拟内存与进程物理内存口径差异",
+          "evidence_id": "C05-E01"
+        },
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-2.1/admin-manual/trouble-shooting/memory-management/memory-feature/memory-tracker.md",
+          "source_version": "2.1",
+          "lines": [
+            49,
+            57
+          ],
+          "sha256": "d76b633986420bf89115b65e05fb1baa95ab781957f4308970e159f8e92dd95e",
+          "supports": "2.1.5前SegmentCache统计与Heap Profile排查步骤",
+          "evidence_id": "C05-E02"
+        },
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-2.1/admin-manual/trouble-shooting/memory-management/memory-analysis/jemalloc-memory-analysis.md",
+          "source_version": "2.1",
+          "lines": [
+            35,
+            45
+          ],
+          "sha256": "267c44f4e134fb45c1ca3db4b1a3bdb6bc0a36bbc7ada93316ab99f9b473086b",
+          "supports": "线程idle时Thread Cache可不随查询结束立即清理",
+          "evidence_id": "C05-E03"
+        }
+      ],
+      "pass_conditions": [
+        "按2.1证据区分Tracker/RSS、缓存与统计口径",
+        "不能从RSS不降直接认定泄漏，或断言一定不是泄漏；必要运行态材料须列明"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "使用2026-10-23已完成的原帖核查和纠偏，输入是整理后的保真场景，不是原帖逐字引文；本轮不重新联网。",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A14",
+      "title": "社区：分区开关和命名的纠偏",
+      "inputs": [
+        {
+          "input": "Doris 3.1.4-rc02，Auto Partition与Dynamic Partition联用，dynamic_partition.enable=false。历史分区不清理，改为true后命名又不同，如何按文档解释？",
+          "adapted_from": "C16"
+        }
+      ],
+      "expected_scope": [
+        "3.x"
+      ],
+      "origins": [
+        {
+          "file": "experiments/coverage_audit_20261023/evidence.json",
+          "id": "C16"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-3.x/table-design/data-partitioning/auto-partitioning.md",
+          "source_version": "3.x",
+          "lines": [
+            217,
+            233
+          ],
+          "sha256": "3feb51c458099a60c5e1b7a5f87a17f9ab8b75b596e29a34fda1e1e3d232a0c5",
+          "supports": "联用职责、命名不确定性以及支持版本",
+          "evidence_id": "C16-E01"
+        },
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-3.x/table-design/data-partitioning/dynamic-partitioning.md",
+          "source_version": "3.x",
+          "lines": [
+            125,
+            142
+          ],
+          "sha256": "255d82ed89743a6f1c9b2acb78d877c981ccf8313081d8a33b17c3bbf32a4e0a",
+          "supports": "enable开启开关、start回收规则；false禁用动态分区职责",
+          "evidence_id": "C16-E02"
+        }
+      ],
+      "pass_conditions": [
+        "必须使用已补正的false前提，解释动态回收与按需创建职责",
+        "命名差异按两种创建路径说明，不把外部评论/closed当产品证据",
+        "不能宣称已验证rc02全部实现，不再追问已明确的enable值"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "使用2026-10-23已完成的原帖核查和纠偏，输入是整理后的保真场景，不是原帖逐字引文；本轮不重新联网。",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A15",
+      "title": "社区：未收录历史版本",
+      "inputs": [
+        {
+          "input": "Doris 2.0.2 执行 date_trunc(...,'all') 报错，历史文档却说非法单位返回NULL，哪个才对？",
+          "adapted_from": "C19"
+        }
+      ],
+      "expected_scope": [],
+      "origins": [
+        {
+          "file": "experiments/coverage_audit_20261023/evidence.json",
+          "id": "C19"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "reports/V1_PRODUCT_CONTRACT_20261024.md",
+          "basis_type": "product_version_contract"
+        }
+      ],
+      "pass_conditions": [
+        "明确2.0.2不在2.1/3.x/4.x收录范围内，停止越界检索或请求选择已有版本",
+        "不得自动改查2.1/4.x，更不能引用1.2/2.0历史页裁定2.0.2实现或修复状态"
+      ],
+      "final_requires_dense": false,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "使用2026-10-23已完成的原帖核查和纠偏，输入是整理后的保真场景，不是原帖逐字引文；本轮不重新联网。",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "excluded_out_of_scope_evidence": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-1.2/sql-manual/sql-functions/date-time-functions/date-trunc.md",
+          "source_version": "1.2",
+          "lines": [
+            19,
+            27
+          ],
+          "sha256": "c4058e013306993cde972dac34ecc9d897cb5ce7d435099530e6e44f85bd8d11",
+          "supports": "1.2历史页面确有非法unit返回NULL陈述",
+          "evidence_id": "C19-E01"
+        },
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-2.0/sql-manual/sql-functions/date-time-functions/date-trunc.md",
+          "source_version": "2.0",
+          "lines": [
+            15,
+            22
+          ],
+          "sha256": "40effdcfd544c277ecc56004a9c8e72e8f992fc5ca352ebd5b0df05c29d69973",
+          "supports": "当前2.0页面列合法值，没有NULL承诺",
+          "evidence_id": "C19-E02"
+        }
+      ],
+      "mode": "single",
+      "expected_status": "needs_clarification"
+    },
+    {
+      "id": "A16",
+      "title": "社区：INT数值边界而非名称",
+      "inputs": [
+        {
+          "input": "Doris 2.1.6 动态分区表中INT月值为202503，分区名仍是p202502，但实际边界出现20250201这样的YYYYMMDD数值，写入失败。如何核对？能否确定是命名问题或Bug？",
+          "adapted_from": "C20"
+        }
+      ],
+      "expected_scope": [
+        "2.1"
+      ],
+      "origins": [
+        {
+          "file": "experiments/coverage_audit_20261023/evidence.json",
+          "id": "C20"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-2.1/table-design/data-partitioning/dynamic-partitioning.md",
+          "source_version": "2.1",
+          "lines": [
+            23,
+            31
+          ],
+          "sha256": "3fc6c0f2ec281a69805d5630a10a1a1559afe650f5a0ef5f57a8a1ce94eff04f",
+          "supports": "本地2.1动态分区限制为DATE/DATETIME，与INT案例存在适用缺口",
+          "evidence_id": "C20-E01"
+        },
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-2.1/table-design/data-partitioning/manual-partitioning.md",
+          "source_version": "2.1",
+          "lines": [
+            21,
+            42
+          ],
+          "sha256": "5497106bb9c77665b9f6f5f21cc089b97cb774b54931ff203e8d98d30fd3cdf0",
+          "supports": "Range左闭右开，名称与边界独立；用于核对YYYYMM值是否落入真实数值边界",
+          "evidence_id": "C20-E02"
+        }
+      ],
+      "pass_conditions": [
+        "不再使用错误的“分区名称增加日成分”摘要",
+        "解释Range左闭右开及数值边界核对；INT与文档DATE/DATETIME限制的适用缺口必须保留",
+        "不能仅据滚动文档裁定2.1.6实现Bug或认为改名能修好"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "使用2026-10-23已完成的原帖核查和纠偏，输入是整理后的保真场景，不是原帖逐字引文；本轮不重新联网。",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "single"
+    },
+    {
+      "id": "A17",
+      "title": "必要澄清与短句接续",
+      "inputs": [
+        {
+          "input": "帮我看看",
+          "expected_status": "needs_clarification"
+        },
+        {
+          "input": "我想知道 PI() 返回什么？",
+          "expected_turn_kind": "clarification_reply"
+        }
+      ],
+      "expected_scope": [
+        "4.x"
+      ],
+      "origins": [
+        {
+          "file": "tests/check_v1_application.py",
+          "id": "validate:clarify"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "reports/V1_PRODUCT_CONTRACT_20261024.md",
+          "basis_type": "product_contract"
+        },
+        {
+          "file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-4.x/sql-manual/sql-functions/scalar-functions/numeric-functions/pi.md",
+          "source_version": "4.x",
+          "sha256": "4bd3c55bff22ce1daf9afbc4b2e8625d6247b38d858edf359bc856c4abcda98b"
+        }
+      ],
+      "pass_conditions": [
+        "目标缺失只问一项关键材料，不能强制先填版本",
+        "短句回复后继续当前会话，简单问题直接回答；事实只来自用户原话"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "conversation"
+    },
+    {
+      "id": "A18",
+      "title": "补充、纠正澄清、临时比较与换话题",
+      "inputs": [
+        {
+          "input": "Doris 3.x，我的配置 enable_insert_strict=false，为什么导入失败？",
+          "expected_scope": [
+            "3.x"
+          ]
+        },
+        {
+          "input": "补充：当前还没有提供完整错误日志。",
+          "expected_scope": [
+            "3.x"
+          ]
+        },
+        {
+          "input": "纠正一下，刚才说错了",
+          "expected_scope": []
+        },
+        {
+          "input": "enable_insert_strict=true",
+          "expected_scope": [
+            "3.x"
+          ]
+        },
+        {
+          "input": "纠正一下，我用的是 Doris 2.1.4",
+          "expected_scope": [
+            "2.1"
+          ]
+        },
+        {
+          "input": "那比较3.x和4.x这个参数的规则",
+          "expected_scope": [
+            "3.x",
+            "4.x"
+          ]
+        },
+        {
+          "input": "那具体含义呢？",
+          "expected_scope": [
+            "2.1"
+          ]
+        },
+        {
+          "input": "换个问题，PI()返回什么？",
+          "expected_scope": [
+            "4.x"
+          ]
+        }
+      ],
+      "expected_scope": null,
+      "origins": [
+        {
+          "file": "tests/check_v1_flow_review.py",
+          "id": "real_http_state_steps"
+        },
+        {
+          "file": "tests/test_sessions.py",
+          "id": "ConversationRules"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "reports/V1_PRODUCT_CONTRACT_20261024.md",
+          "basis_type": "product_contract"
+        }
+      ],
+      "pass_conditions": [
+        "补充保留目标，纠正澄清后新值替代旧false；不是把false与true并列",
+        "版本纠正清旧证据；临时比较后仍回到2.1目标，不能带上比较任务",
+        "新话题清除旧配置/版本；不能把上一回答的推论记作用户事实"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "第三轮是澄清而非检索；字段实际语义与用户集群根因仍需官方证据，不能只靠状态断言答案正确。",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "conversation"
+    },
+    {
+      "id": "A19",
+      "title": "版本矩阵与不足不扩大范围",
+      "inputs": [
+        {
+          "input": "PI() 返回什么？",
+          "expected_scope": [
+            "4.x"
+          ]
+        },
+        {
+          "input": "Doris 3.x 的 PI() 返回什么？",
+          "expected_scope": [
+            "3.x"
+          ]
+        },
+        {
+          "input": "比较 Doris 3.x 和4.x 的 PI()",
+          "expected_scope": [
+            "3.x",
+            "4.x"
+          ]
+        },
+        {
+          "input": "请查所有版本，PI() 返回什么？",
+          "expected_scope": [
+            "4.x",
+            "3.x",
+            "2.1"
+          ]
+        },
+        {
+          "input_ref": {
+            "file": "eval/round2_cases.jsonl",
+            "id": "missing_knowledge",
+            "field": "question"
+          },
+          "expected_scope": [
+            "4.x"
+          ],
+          "expected_status": "insufficient_evidence_or_no_evidence"
+        },
+        {
+          "input": "quantum_auto_fix_mode 默认值和开启方法是什么？",
+          "expected_scope": [
+            "4.x"
+          ],
+          "expected_status": "insufficient_evidence_or_no_evidence"
+        }
+      ],
+      "expected_scope": null,
+      "origins": [
+        {
+          "file": "tests/check_v1_application.py",
+          "id": "validate:all/unknown"
+        },
+        {
+          "file": "tests/test_sessions.py",
+          "id": "test_latest_default_and_explicit_only"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "reports/V1_PRODUCT_CONTRACT_20261024.md",
+          "basis_type": "product_contract"
+        }
+      ],
+      "pass_conditions": [
+        "前三种不夹带允许范围以外的证据；只有明确全版本才覆盖全部",
+        "缺参数证据时不编造默认值/命令，不断言不存在，不扩大范围",
+        "规则层可离线验证，真实证据集合和回答须新索引完成后复验"
+      ],
+      "final_requires_dense": true,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "variants"
+    },
+    {
+      "id": "A20",
+      "title": "首页与会话完整生命周期",
+      "inputs": [
+        {
+          "action": "三个场景逐个点击→修改示例→新建/切换会话→刷新→取消删除→确认删除自身测试会话"
+        }
+      ],
+      "expected_scope": null,
+      "origins": [
+        {
+          "file": "tests/check_v1_ui.py",
+          "id": "main"
+        },
+        {
+          "file": "tests/check_v1_flow_review.py",
+          "id": "run"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "reports/V1_PRODUCT_CONTRACT_20261024.md",
+          "basis_type": "product_contract"
+        }
+      ],
+      "pass_conditions": [
+        "示例只填入不发送；版本提示一直可见",
+        "当前会话与各自草稿可恢复且不串；删除取消不丢历史，确认只删指定会话",
+        "桌面和390px手机可操作"
+      ],
+      "final_requires_dense": false,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "ui_procedure"
+    },
+    {
+      "id": "A21",
+      "title": "在途草稿、断线恢复和失败反馈",
+      "inputs": [
+        {
+          "action": "暂停发送确认→输入下一轮草稿→恢复确认→刷新；轮询一次503后恢复；提交503不执行"
+        }
+      ],
+      "expected_scope": null,
+      "origins": [
+        {
+          "file": "tests/check_v1_flow_review.py",
+          "id": "run:draft/transient/reject"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "reports/V1_PRODUCT_CONTRACT_20261024.md",
+          "basis_type": "product_contract"
+        }
+      ],
+      "pass_conditions": [
+        "已发送内容只提交一次，新输入不被清空且刷新保留",
+        "断线提示可见，恢复完成后清除过期警告",
+        "提交失败保留输入，不生成成功消息、不自动重发；切换会话不污染其他输入"
+      ],
+      "final_requires_dense": false,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "ui_procedure"
+    },
+    {
+      "id": "A22",
+      "title": "答案依据及不完整/失败状态",
+      "inputs": [
+        {
+          "action": "回放已存真实组件答案/证据不足结果；注入generation_incomplete、execution_failed、source_integrity_failed状态"
+        }
+      ],
+      "expected_scope": null,
+      "origins": [
+        {
+          "file": "tests/check_v1_flow_review.py",
+          "id": "run:answer_and_failure_states_replay"
+        },
+        {
+          "file": "tests/test_query_pipeline.py",
+          "id": "ContextAndAnswerTests"
+        }
+      ],
+      "knowledge_basis": [
+        {
+          "file": "reports/V1_PRODUCT_CONTRACT_20261024.md",
+          "basis_type": "product_contract"
+        }
+      ],
+      "pass_conditions": [
+        "答案来源可展开并显示版本、原文位置和条件",
+        "不完整/失败不能标完成，不展示半截为成功答案",
+        "这类回放仅验证UI状态展示，不能代替真实LLM/Dense证据忠实度检查"
+      ],
+      "final_requires_dense": false,
+      "this_round_result": "not_executed_as_full_system",
+      "note": "",
+      "judgment": "检查执行状态/范围/事实追溯，再人工对照正文；不能仅按关键词或引用编号判正确。",
+      "mode": "ui_procedure"
+    }
+  ],
+  "reuse_exclusions": [
+    {
+      "source": "eval/holdout_cases.jsonl#unique_document_conflict",
+      "reason": "旧要点将1.2能力引入与2.1默认行为边界看作不一致，既有审阅已指出不必然矛盾；不据此强制判真实冲突。"
+    },
+    {
+      "source": "eval/round2_cases.jsonl#version_conflict",
+      "reason": "这是旧显式来源选择/API兼容用例，不可替代正式Session本轮版本优先与纠正契约。"
+    },
+    {
+      "source": "experiments/ragas_20261023/final_run/questions.json#Q10/Q11/Q12/Q13/Q17/Q22",
+      "reason": "重复、跨版本相同文本或弱关联并列，不为多跳标签重复增题或加分。"
+    }
+  ]
+}

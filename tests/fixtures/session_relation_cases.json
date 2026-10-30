@@ -1,0 +1,271 @@
+[
+  {
+    "id": "CONV006",
+    "source": "2026-10-28 user original six-turn conversation; order and punctuation frozen",
+    "regression_entrypoint": "python -m unittest discover -s tests -v",
+    "inputs": [
+      "列转行和聚合多维分析有什么区别",
+      "一般在什么场景下使用？",
+      "Doris 4.0.2 中 hive.recursive_directories 有什么作用和使用条件？",
+      "所有版本做个比较。",
+      "Doris 的 BloomFilter 索引有什么限制？",
+      "其他版本呢？"
+    ],
+    "forbidden_source_paths": [
+      "/greatest.md",
+      "/least.md",
+      "/variant.md",
+      "/insert-into-values-manual.md"
+    ],
+    "expected": [
+      {
+        "kind": "new_question",
+        "objects": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "subjects": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "versions": [
+          "4.x"
+        ],
+        "business": "解释两个功能的区别，引用展开与多维聚合依据"
+      },
+      {
+        "kind": "follow_up",
+        "objects": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "subjects": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "versions": [
+          "4.x"
+        ],
+        "business": "分别说明两个功能的使用场景，不转为Doris整体应用场景"
+      },
+      {
+        "kind": "new_question",
+        "objects": [],
+        "subjects": [
+          "hive.recursive_directories"
+        ],
+        "versions": [
+          "4.x"
+        ],
+        "excluded": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "business": "解释Hive递归目录参数的作用、条件和4.0.2相关文档边界"
+      },
+      {
+        "kind": "follow_up",
+        "objects": [],
+        "subjects": [
+          "hive.recursive_directories"
+        ],
+        "versions": [
+          "4.x",
+          "3.x",
+          "2.1"
+        ],
+        "excluded": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "business": "逐范围核对Hive参数及正文版本条件；无记载不能推定不支持，不能回答无关函数差异"
+      },
+      {
+        "kind": "new_question",
+        "objects": [],
+        "subjects": [
+          "BloomFilter"
+        ],
+        "versions": [
+          "4.x"
+        ],
+        "excluded": [
+          "列转行",
+          "聚合多维分析",
+          "hive.recursive_directories"
+        ],
+        "business": "解释BloomFilter的限制，区分普通与NGram的适用条件"
+      },
+      {
+        "kind": "follow_up",
+        "objects": [],
+        "subjects": [
+          "BloomFilter"
+        ],
+        "versions": [
+          "3.x",
+          "2.1"
+        ],
+        "excluded": [
+          "列转行",
+          "聚合多维分析",
+          "hive.recursive_directories"
+        ],
+        "business": "继续讨论BloomFilter，仅检索3.x和2.1，结论不得超出对应正文证据"
+      }
+    ],
+    "runtime_fixture": "CONV006_runtime_v1.json",
+    "run_history": [
+      {
+        "run": "reports/serious_defects_regression_20261028/live",
+        "actual_inputs": 6,
+        "same_session": true,
+        "core_task_inheritance": "PASS",
+        "answer_quality": "PARTIAL",
+        "review": "AI辅助评审；第4轮将示例适用场景说成唯一场景，保留未通过，不修改预期。",
+        "history_preserved": [
+          "reports/session_relation_exception_20261028/",
+          "reports/followup_topic_20261028/repair_ledger.json"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "A",
+    "source": "reports/context_relation_audit_20261028/historical_A.json: original saved user inputs",
+    "inputs": [
+      "列转行和聚合多维分析有什么区别",
+      "一般在什么场景下使用"
+    ],
+    "expected": [
+      {
+        "kind": "new_question",
+        "objects": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "versions": [
+          "4.x"
+        ]
+      },
+      {
+        "kind": "follow_up",
+        "objects": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "versions": [
+          "4.x"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "B",
+    "source": "reports/context_relation_audit_20261028/historical_B.json: original saved user inputs",
+    "inputs": [
+      "Doris 4.0.2 中 hive.recursive_directories 有什么作用和使用条件？",
+      "列转行和聚合多维分析有什么区别，在什么场景下用",
+      "所有版本做个比较"
+    ],
+    "expected": [
+      {
+        "kind": "new_question",
+        "objects": [],
+        "versions": [
+          "4.x"
+        ]
+      },
+      {
+        "kind": "new_question",
+        "objects": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "versions": [
+          "4.x"
+        ],
+        "excluded": [
+          "hive.recursive_directories"
+        ]
+      },
+      {
+        "kind": "follow_up",
+        "objects": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "versions": [
+          "4.x",
+          "3.x",
+          "2.1"
+        ],
+        "excluded": [
+          "hive.recursive_directories"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C",
+    "source": "user supplied normal relative-scope control",
+    "inputs": [
+      "列转行和聚合多维分析有什么区别？",
+      "其他版本呢？"
+    ],
+    "expected": [
+      {
+        "kind": "new_question",
+        "objects": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "versions": [
+          "4.x"
+        ]
+      },
+      {
+        "kind": "follow_up",
+        "objects": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "versions": [
+          "3.x",
+          "2.1"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "D",
+    "source": "user supplied independent-topic control",
+    "inputs": [
+      "列转行和聚合多维分析有什么区别？",
+      "Doris 的 BloomFilter 索引有什么限制？"
+    ],
+    "expected": [
+      {
+        "kind": "new_question",
+        "objects": [
+          "列转行",
+          "聚合多维分析"
+        ],
+        "versions": [
+          "4.x"
+        ]
+      },
+      {
+        "kind": "new_question",
+        "objects": [],
+        "versions": [
+          "4.x"
+        ],
+        "excluded": [
+          "列转行",
+          "聚合多维分析"
+        ]
+      }
+    ]
+  }
+]

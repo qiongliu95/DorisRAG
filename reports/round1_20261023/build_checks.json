@@ -1,0 +1,65 @@
+{
+  "build_id": "c2774ec931ef-f3bc55d5a4",
+  "model": "BAAI/bge-base-zh-v1.5",
+  "vectors_shape": [
+    51391,
+    768
+  ],
+  "vectors_checked": 51391,
+  "faiss_type": "IndexFlatIP",
+  "normalized": true,
+  "all_metadata_rows_equal_source": true,
+  "source_files_checked_against_original_survey": 4109,
+  "old_artifacts_checked": 9,
+  "old_build_id": "bac4bc4b547b-08f3c6d771",
+  "weight_sha256": "731cf5d88ed555a21ff2f2d9fa4db43b10489173ddd9178db3eecfd7a2bae044",
+  "search_smoke": [
+    {
+      "version": "4.x",
+      "chunk_ids": [
+        "doris:zh-CN:4.x:sql-manual/sql-functions/scalar-functions/numeric-functions/pi.md#chunk-0003",
+        "doris:zh-CN:4.x:sql-manual/sql-functions/scalar-functions/numeric-functions/pi.md#chunk-0001",
+        "doris:zh-CN:4.x:sql-manual/sql-functions/scalar-functions/numeric-functions/pi.md#chunk-0004"
+      ],
+      "passed": true
+    },
+    {
+      "version": "3.x",
+      "chunk_ids": [
+        "doris:zh-CN:3.x:sql-manual/sql-functions/scalar-functions/numeric-functions/pi.md#chunk-0003",
+        "doris:zh-CN:3.x:sql-manual/sql-functions/scalar-functions/numeric-functions/pi.md#chunk-0001",
+        "doris:zh-CN:3.x:sql-manual/sql-functions/scalar-functions/numeric-functions/pi.md#chunk-0004"
+      ],
+      "passed": true
+    },
+    {
+      "version": "2.1",
+      "chunk_ids": [
+        "doris:zh-CN:2.1:sql-manual/sql-functions/scalar-functions/numeric-functions/pi.md#chunk-0003",
+        "doris:zh-CN:2.1:sql-manual/sql-functions/scalar-functions/numeric-functions/pi.md#chunk-0001",
+        "doris:zh-CN:2.1:sql-manual/sql-functions/scalar-functions/numeric-functions/pi.md#chunk-0004"
+      ],
+      "passed": true
+    }
+  ],
+  "context_smoke": [
+    {
+      "kind": "code",
+      "chunk_id": "doris:zh-CN:2.1:admin-manual/cluster-management/load-balancing.md#chunk-0038",
+      "passed": true
+    },
+    {
+      "kind": "table",
+      "chunk_id": "doris:zh-CN:2.1:admin-manual/data-admin/ccr/feature.md#chunk-0030",
+      "passed": true
+    },
+    {
+      "kind": "tab",
+      "chunk_id": "doris:zh-CN:2.1:lakehouse/catalogs/hive-catalog.mdx#chunk-0021",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "scope": "index/data integrity and existing retrieval smoke only; no answer-quality claim"
+}

@@ -1,0 +1,15 @@
+# 本次实测环境；CPU 模型使用现有本地缓存，不下载 Doris 文档。
+torch==2.11.0
+sentence-transformers==5.4.1
+transformers==5.5.4
+faiss-cpu==1.13.2
+numpy==2.4.4
+scipy==1.17.1
+scikit-learn==1.8.0
+PyYAML==6.0.3
+python-dotenv==1.1.1
+requests==2.33.1
+fastapi==0.115.0
+uvicorn==0.30.6
+markdown-it-py==4.0.0
+mdurl==0.1.2

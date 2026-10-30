@@ -1,0 +1,48 @@
+# 本地凭据
+.env
+.env.*
+!.env.example
+
+# Python/工具缓存与环境
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+uv-cache/
+tiktoken-cache/
+node_modules/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 本地模型、索引、会话、原始文档和运行日志
+/data/
+/logs/
+/doris-website-master/
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*.sqlite3-wal
+*.sqlite3-shm
+*.zip
+
+# 中间研究/实验产物
+/experiments/
+/input_materials/
+/methods/
+/skill_prototypes/
+
+# 保留当前Web代码依赖的两份门禁记录，其余报告仅本地归档
+/reports/*
+!/reports/round1_20261023/
+/reports/round1_20261023/*
+!/reports/round1_20261023/build_checks.json
+!/reports/round1_20261023/run_status.json
+

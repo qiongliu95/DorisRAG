@@ -1,0 +1,133 @@
+[
+  {
+    "id": "Q1",
+    "input": "我目前使用的是 Doris 2.0.0。BE 节点在查询结束后内存一直不下降，最终可能出现 OOM。这个版本的 Memory Tracker 为什么会出现统计缺失？有什么排查办法？",
+    "expected": {
+      "supported": [],
+      "missing": [
+        "2.0.0"
+      ],
+      "target": [
+        "2.0.0"
+      ],
+      "behavior": "明确2.0.0无对应来源，不生成该版知识"
+    },
+    "historical_trace": "logs/traces/20261027T080805855674Z_3084404a8ba946a0b8ce25311725fcba.json",
+    "historical_trace_sha256": "c6f5ff0626542decb3010167884a47ad0e5ca97151d7d721e8716f4a9dc1939f",
+    "historical_status": "needs_clarification",
+    "historical_answer": "知识库仅覆盖 2.1、3.x、4.x；请确认要查询的 Doris 版本。",
+    "historical_failure": null,
+    "historical_model_responses": [],
+    "historical_assembled_query": "我目前使用的是 Doris 2.0.0。BE 节点在查询结束后内存一直不下降，最终可能出现 OOM。这个版本的 Memory Tracker 为什么会出现统计缺失？有什么排查办法？"
+  },
+  {
+    "id": "Q2",
+    "input": "我现在使用 Doris 2.1.2，BE 节点查询结束后内存不下降。以前使用 2.0.0 时没有这种情况。当前 process resident memory 是 54.59 GB，sum of all trackers 是 15.53 GB。这个差值说明什么？应该如何排查？",
+    "expected": {
+      "supported": [
+        "2.1"
+      ],
+      "missing": [],
+      "target": [
+        "2.1.2"
+      ],
+      "behavior": "按当前2.1.2解释数值与排查，不让历史2.0.0阻断"
+    },
+    "historical_trace": "logs/traces/20261027T080826941307Z_45fb322f56504bf39232b7565bbc4bb5.json",
+    "historical_trace_sha256": "cdcfc7a94d7428c69dce28c307d976ff70d8374327fe5c2c02fed5b837f79e6b",
+    "historical_status": "understanding_failed",
+    "historical_answer": "复杂材料提取失败，未执行检索。请检查服务配置或补充简洁的事实与查询目标。",
+    "historical_failure": "基础规则仍被场景机制限定",
+    "historical_model_responses": [
+      "{\"id\":\"55fd283d-0ee3-4bab-9062-905dc284d0b0\",\"object\":\"chat.completion\",\"created\":1793088507,\"model\":\"deepseek-flash\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"goal\\\":\\\"排查Doris 2.1.2 BE查询结束后内存不下降及Memory Tracker统计缺失\\\",\\\"facts\\\":[{\\\"quote\\\":\\\"我现在使用 Doris 2.1.2，BE 节点查询结束后内存不下降。\\\"},{\\\"quote\\\":\\\"以前使用 2.0.0 时没有这种情况。\\\"},{\\\"quote\\\":\\\"当前 process resident memory 是 54.59 GB，sum of all trackers 是 15.53 GB。\\\"}],\\\"conditions\\\":[{\\\"quote\\\":\\\"我现在使用 Doris 2.1.2，BE 节点查询结束后内存不下降。\\\"}],\\\"inferences\\\":[],\\\"missing_conditions\\\":[\\\"查询类型与并发情况\\\",\\\"BE内存相关配置参数\\\",\\\"OOM发生时的错误日志\\\",\\\"Memory Tracker各tracker明细\\\"],\\\"foundation\\\":{\\\"base_object\\\":\\\"BE节点内存\\\",\\\"scenario_object\\\":\\\"Memory Tracker\\\",\\\"type_quote\\\":\\\"process resident memory 是 54.59 GB，sum of all trackers 是 15.53 GB\\\",\\\"rule_goal\\\":\\\"核对BE进程内存与Memory Tracker统计的语义及差值含义\\\"},\\\"subquestions\\\":[\\\"Doris 2.1.2中Memory Tracker的统计范围与process resident memory的差异原因是什么？\\\",\\\"Doris 2.1.2中BE内存不下降的排查方法有哪些？\\\"]}\"},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":667,\"completion_tokens\":274,\"total_tokens\":941,\"prompt_tokens_details\":{\"cached_tokens\":256},\"prompt_cache_hit_tokens\":256,\"prompt_cache_miss_tokens\":411},\"system_fingerprint\":\"e72d3c7f663d3e1383b00b3884cb4501\"}"
+    ],
+    "historical_assembled_query": "当前目标：我目前使用的是 Doris 2.0.0。BE 节点在查询结束后内存一直不下降，最终可能出现 OOM。这个版本的 Memory Tracker 为什么会出现统计缺失？有什么排查办法？\n用户材料：\n我目前使用的是 Doris 2.0.0。BE 节点在查询结束后内存一直不下降，最终可能出现 OOM。这个版本的 Memory Tracker 为什么会出现统计缺失？有什么排查办法？\n\n我现在使用 Doris 2.1.2，BE 节点查询结束后内存不下降。以前使用 2.0.0 时没有这种情况。当前 process resident memory 是 54.59 GB，sum of all trackers 是 15.53 GB。这个差值说明什么？应该如何排查？\n当前用户指定 Doris 版本：2.1.2"
+  },
+  {
+    "id": "Q3",
+    "input": "Doris 2.0.0 和 2.1.2 的 BE 内存管理有什么区别？特别是 Memory Tracker 的统计范围、SegmentCache 的内存管理，以及查询结束后内存不下降的问题。",
+    "expected": {
+      "supported": [
+        "2.1"
+      ],
+      "missing": [
+        "2.0.0"
+      ],
+      "target": [
+        "2.0.0",
+        "2.1.2"
+      ],
+      "behavior": "回答2.1有证据部分并明确2.0缺口，不编造完整差异"
+    },
+    "historical_trace": "logs/traces/20261027T080849989825Z_4bce3b3bbb9841bf870ffda680f614aa.json",
+    "historical_trace_sha256": "ffec1de97cad2c971fd83d37c9b239d79f4a906f3225528916bea7768145f22c",
+    "historical_status": "needs_clarification",
+    "historical_answer": "知识库仅覆盖 2.1、3.x、4.x；请确认要查询的 Doris 版本。",
+    "historical_failure": null,
+    "historical_model_responses": [],
+    "historical_assembled_query": "Doris 2.0.0 和 2.1.2 的 BE 内存管理有什么区别？特别是 Memory Tracker 的统计范围、SegmentCache 的内存管理，以及查询结束后内存不下降的问题。"
+  },
+  {
+    "id": "Q4",
+    "input": "Doris 2.0.0 以前一直运行正常，BE 空闲时内存一般不会超过 60%。后来升级到 2.1.1，现在又升级到 2.1.2，但内存仍然持续上涨。请问目前应该优先检查哪些问题？",
+    "expected": {
+      "supported": [
+        "2.1"
+      ],
+      "missing": [],
+      "target": [
+        "2.1.2"
+      ],
+      "behavior": "按当前2.1.2提供优先检查方向"
+    },
+    "historical_trace": "logs/traces/20261027T080902305494Z_bd031b316e9d45a89576c0aa6b77bf15.json",
+    "historical_trace_sha256": "74fba587478325c0c771d5d43c1ee60dc5d0ecb7691752991f8615339a63b2f0",
+    "historical_status": "needs_clarification",
+    "historical_answer": "知识库仅覆盖 2.1、3.x、4.x；请确认要查询的 Doris 版本。",
+    "historical_failure": null,
+    "historical_model_responses": [],
+    "historical_assembled_query": "当前目标：Doris 2.0.0 和 2.1.2 的 BE 内存管理有什么区别？特别是 Memory Tracker 的统计范围、SegmentCache 的内存管理，以及查询结束后内存不下降的问题。\n用户材料：\nDoris 2.0.0 和 2.1.2 的 BE 内存管理有什么区别？特别是 Memory Tracker 的统计范围、SegmentCache 的内存管理，以及查询结束后内存不下降的问题。\n\nDoris 2.0.0 以前一直运行正常，BE 空闲时内存一般不会超过 60%。后来升级到 2.1.1，现在又升级到 2.1.2，但内存仍然持续上涨。请问目前应该优先检查哪些问题？\n本轮明确请求：Doris 2.0.0 以前一直运行正常，BE 空闲时内存一般不会超过 60%。后来升级到 2.1.1，现在又升级到 2.1.2，但内存仍然持续上涨。请问目前应该优先检查哪些问题？"
+  },
+  {
+    "id": "Q5",
+    "input": "我目前还在使用 Doris 2.0.0，准备升级到 2.1.2。想提前了解一下，Doris 2.1.2 中 Memory Tracker 统计缺失应该如何判断？遇到 BE 内存不下降应该怎么排查？",
+    "expected": {
+      "supported": [
+        "2.1"
+      ],
+      "missing": [],
+      "target": [
+        "2.1.2"
+      ],
+      "behavior": "运行2.0.0不妨碍查询计划升级的2.1.2文档，不套用于当前2.0"
+    },
+    "historical_trace": "logs/traces/20261027T080913245417Z_5bb72fa365f5466b8ad271fb83504b6d.json",
+    "historical_trace_sha256": "67f3605aadaba73d4c29f9d1bb1edbdbaa1e6aacdd8f1dc4a2268164055b975c",
+    "historical_status": "needs_clarification",
+    "historical_answer": "知识库仅覆盖 2.1、3.x、4.x；请确认要查询的 Doris 版本。",
+    "historical_failure": null,
+    "historical_model_responses": [],
+    "historical_assembled_query": "当前目标：Doris 2.0.0 和 2.1.2 的 BE 内存管理有什么区别？特别是 Memory Tracker 的统计范围、SegmentCache 的内存管理，以及查询结束后内存不下降的问题。\n用户材料：\nDoris 2.0.0 和 2.1.2 的 BE 内存管理有什么区别？特别是 Memory Tracker 的统计范围、SegmentCache 的内存管理，以及查询结束后内存不下降的问题。\n\nDoris 2.0.0 以前一直运行正常，BE 空闲时内存一般不会超过 60%。后来升级到 2.1.1，现在又升级到 2.1.2，但内存仍然持续上涨。请问目前应该优先检查哪些问题？\n\n我目前还在使用 Doris 2.0.0，准备升级到 2.1.2。想提前了解一下，Doris 2.1.2 中 Memory Tracker 统计缺失应该如何判断？遇到 BE 内存不下降应该怎么排查？\n本轮明确请求：我目前还在使用 Doris 2.0.0，准备升级到 2.1.2。想提前了解一下，Doris 2.1.2 中 Memory Tracker 统计缺失应该如何判断？遇到 BE 内存不下降应该怎么排查？"
+  },
+  {
+    "id": "Q6",
+    "input": "我们在 Doris 2.1.1 上发现 BE 内存持续上涨，查询停止后也无法恢复，最终导致 OOM。升级到 2.1.2 后问题依然存在。以前使用 2.0.0 时，BE 空闲内存占用从未超过 60%。\n\nMemory Tracker 显示 process resident memory 为 54.59 GB，sum of all trackers 为 15.53 GB，DataPageCache 为 10.08 GB，tc/jemalloc cache 为 2.95 GB。\n\n这是内存泄漏还是缓存没有释放？为什么 Memory Tracker 与实际内存差这么多？应该如何排查？",
+    "expected": {
+      "supported": [
+        "2.1"
+      ],
+      "missing": [],
+      "target": [
+        "2.1.2"
+      ],
+      "behavior": "按升级后2.1.2处理，历史2.0及2.1.1不强制比较"
+    },
+    "historical_trace": "logs/traces/20261027T080923060876Z_8bdd310edbfc4a05a72771f2a9f8b3a5.json",
+    "historical_trace_sha256": "cad2c1149c51e7bbbcbd13f5680e9ae2e9be0bd7a470e25332e5a2eab0878b9c",
+    "historical_status": "needs_clarification",
+    "historical_answer": "知识库仅覆盖 2.1、3.x、4.x；请确认要查询的 Doris 版本。",
+    "historical_failure": null,
+    "historical_model_responses": [],
+    "historical_assembled_query": "当前目标：Doris 2.0.0 和 2.1.2 的 BE 内存管理有什么区别？特别是 Memory Tracker 的统计范围、SegmentCache 的内存管理，以及查询结束后内存不下降的问题。\n用户材料：\nDoris 2.0.0 和 2.1.2 的 BE 内存管理有什么区别？特别是 Memory Tracker 的统计范围、SegmentCache 的内存管理，以及查询结束后内存不下降的问题。\n\nDoris 2.0.0 以前一直运行正常，BE 空闲时内存一般不会超过 60%。后来升级到 2.1.1，现在又升级到 2.1.2，但内存仍然持续上涨。请问目前应该优先检查哪些问题？\n\n我目前还在使用 Doris 2.0.0，准备升级到 2.1.2。想提前了解一下，Doris 2.1.2 中 Memory Tracker 统计缺失应该如何判断？遇到 BE 内存不下降应该怎么排查？\n\n我们在 Doris 2.1.1 上发现 BE 内存持续上涨，查询停止后也无法恢复，最终导致 OOM。升级到 2.1.2 后问题依然存在。以前使用 2.0.0 时，BE 空闲内存占用从未超过 60%。\n\nMemory Tracker 显示 process resident memory 为 54.59 GB，sum of all trackers 为 15.53 GB，DataPageCache 为 10.08 GB，tc/jemalloc cache 为 2.95 GB。\n\n这是内存泄漏还是缓存没有释放？为什么 Memory Tracker 与实际内存差这么多？应该如何排查？\n本轮明确请求：我们在 Doris 2.1.1 上发现 BE 内存持续上涨，查询停止后也无法恢复，最终导致 OOM。升级到 2.1.2 后问题依然存在。以前使用 2.0.0 时，BE 空闲内存占用从未超过 60%。\n\nMemory Tracker 显示 process resident memory 为 54.59 GB，sum of all trackers 为 15.53 GB，DataPageCache 为 10.08 GB，tc/jemalloc cache 为 2.95 GB。\n\n这是内存泄漏还是缓存没有释放？为什么 Memory Tracker 与实际内存差这么多？应该如何排查？"
+  }
+]

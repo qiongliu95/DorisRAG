@@ -1,0 +1,21 @@
+{
+  "source_root": "doris-website-master/doris-website-master",
+  "data_dir": "data/round1_20261023",
+  "embedding_model": "BAAI/bge-base-zh-v1.5",
+  "local_files_only": true,
+  "max_embedding_tokens": 512,
+  "batch_size": 32,
+  "torch_threads": 8,
+  "query_prefix": "为这个句子生成表示以用于检索相关文章：",
+  "default_version": "4.x",
+  "expected_full_counts": {
+    "4.x": 1572,
+    "3.x": 1308,
+    "2.1": 1229
+  },
+  "top_k": 5,
+  "retrieval_mode": "hybrid_precise",
+  "embedding_model_path": "data/models/bge-base-zh-v1.5",
+  "embedding_dimension": 768,
+  "target_body_tokens": 340
+}

@@ -1,0 +1,57 @@
+{
+  "version": "doris-eval-v2-20261025",
+  "base_cases_sha256": "d5ca2d1cf8b88bb97ce2d3a0bda0bfd07d0d8113e677d3ad103face377ef1fcc",
+  "base_cards_sha256": "e71455393b970bbebd5a6efb7150a1df2ee1e8bebc708219fd9510ca42beba92",
+  "clarifications_sha256": "49590901620519d7c775b900875a68ffd7ca3d3caa5a820800da3709e93a054c",
+  "revision_basis": ["reports/quality_baseline_20261025/REPORT.md", "eval/V1_ACCEPTANCE_CLARIFICATIONS_20261024.md"],
+  "status": "retrospective_rules_reviewed_against_existing_official_sources_not_holdout",
+  "semantic_rubrics": {
+    "rl_be3": ["只使用3.x证据，分别引用FE页的5和Routine Load页的1024", "明确两出处存在未消解冲突，不断言3.x实际唯一默认值，不编造补丁原因或当前集群配置"],
+    "compare_rl": ["只比较2.1和3.x，保留2.1.4起1024、此前5的补丁条件", "分别呈现3.x FE页5和Routine Load页1024的未消解冲突，不断言3.x唯一默认值"],
+    "A02": ["只使用3.x证据，分别引用FE页的5和Routine Load页的1024", "明确冲突和未知，不自行裁定3.x唯一默认值或编造补丁变化"],
+    "A03": ["只比较2.1和3.x，说明2.1.4起1024、此前5", "引用3.x两个冲突出处，不把3.x唯一默认值或完整版本差异说成已证实"]
+  },
+  "verified_sources": [
+    {"file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-4.x/admin-manual/config/fe-config.md", "sha256": "e5ee68ee7468effbc4fd917e68ce33c9d92a6dd76cdd26797c8b00da8751779a"},
+    {"file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-3.x/data-operate/update/partial-column-update.md", "sha256": "70a799096f80096b8cd57b1bcb3ab9d6f0aa1e959a5968321be001c0ba239a09"},
+    {"file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-3.x/admin-manual/config/fe-config.md", "sha256": "d44d2e7d9e9097c303b6112d2c93b020f21f1e0fa4b0ae28f3766546c5218b96"},
+    {"file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-3.x/data-operate/import/import-way/routine-load-manual.md", "sha256": "0dda34dc834b21e8ac6d716197d8192742bf313b7f7de6a36b7c575529fb4d52"},
+    {"file": "doris-website-master/doris-website-master/i18n/zh-CN/docusaurus-plugin-content-docs/version-4.x/table-design/data-partitioning/auto-partitioning.md", "sha256": "40fa533cd6fe048212f46f8b14bc6f750353953765d2378ff83c4591319bdacd"}
+  ],
+  "cases": {
+    "retention": {
+      "question_sha256": "ccac233ae93abc13612b65c2e1602e2c382422e617ce71d4d0f26688967a8d2b",
+      "reason": "旧gold用retention_count后缀；精确标识符规则下应明确写出原问题及原文中的partition.retention_count，不能全局允许参数后缀匹配。",
+      "groups": [{"id": "retention_exclusive", "alternatives": [[{"version": "4.x", "path": "table-design/data-partitioning/auto-partitioning.md", "terms": ["partition.retention_count", "dynamic_partition.enable", "4.1.4", "不能与已开启的动态分区"]}]]}]
+    },
+    "index_v1": {
+      "question_sha256": "784240dacd28f523c696f89f2a8d374ee194507b378b0969f475fadf1f78e7b6",
+      "reason": "同版FE配置页直接陈述4.1.5、V1启动和已有表限制；等价的是这些事实，不是整个页面或所有版本。",
+      "extra_alternatives": [[[{"version": "4.x", "path": "admin-manual/config/fe-config.md", "terms": ["4.1.5", "V1", "拒绝启动", "已有 V1 表仍可读取", "不能继续添加倒排索引"]}]]]
+    },
+    "stream_newkey": {
+      "question_sha256": "19d4f342a295992829854e7862c58470c85cd738d24214d5fed2e6f748a280ad",
+      "reason": "同版列更新正文同时陈述3.1.0边界及APPEND/ERROR行为；Routine Load页只有行为而不足以单独覆盖补丁边界。",
+      "extra_alternatives": [[[{"version": "3.x", "path": "data-operate/update/partial-column-update.md", "terms": ["3.1.0", "partial_update_new_key_behavior", "APPEND", "ERROR"]}]]]
+    },
+    "rl_be3": {
+      "question_sha256": "5b5c48c3ad95ad1f77bb182bc8b182a2b8fae1e778a4268387322482180598cb",
+      "reason": "沿用已确认的冲突判据；两个冲突出处均必要，不能作为等价替代而任选一方。",
+      "unresolved_fact": "3.x实际唯一默认值未裁定；召回两出处不代表回答正确。",
+      "groups": [
+        {"id": "3x_fe_5", "alternatives": [[{"version": "3.x", "path": "admin-manual/config/fe-config.md", "terms": ["max_routine_load_task_num_per_be", "默认值：5"]}]]},
+        {"id": "3x_routine_1024", "alternatives": [[{"version": "3.x", "path": "data-operate/import/import-way/routine-load-manual.md", "terms": ["max_routine_load_task_num_per_be", "1024"]}]]}
+      ]
+    },
+    "compare_rl": {
+      "question_sha256": "7062caa2cc293966d03d4f06fee921929b84df45d7f0a860a9af45e19c294d56",
+      "reason": "保留2.1补丁条件并呈现3.x两个冲突来源；不得以唯一3.x=5作为正确答案。",
+      "unresolved_fact": "3.x实际唯一默认值未裁定。",
+      "groups": [
+        {"id": "21_patch", "alternatives": [[{"version": "2.1", "path": "admin-manual/config/fe-config.md", "terms": ["max_routine_load_task_num_per_be", "1024", "2.1.4"]}]]},
+        {"id": "3x_fe_5", "alternatives": [[{"version": "3.x", "path": "admin-manual/config/fe-config.md", "terms": ["max_routine_load_task_num_per_be", "默认值：5"]}]]},
+        {"id": "3x_routine_1024", "alternatives": [[{"version": "3.x", "path": "data-operate/import/import-way/routine-load-manual.md", "terms": ["max_routine_load_task_num_per_be", "1024"]}]]}
+      ]
+    }
+  }
+}
