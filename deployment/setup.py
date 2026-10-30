@@ -1,4 +1,4 @@
-"""Windows 首次安装：校验私有 Release 后恢复本机运行资源。"""
+"""Windows 首次安装：校验 Release 后恢复本机运行资源。"""
 import hashlib
 import json
 import os
@@ -8,6 +8,8 @@ import subprocess
 import sys
 import venv
 import zipfile
+from urllib.error import HTTPError
+from urllib.request import urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -24,14 +26,30 @@ def run(*args):
     subprocess.run([str(x) for x in args], cwd=ROOT, check=True)
 
 
+def download_asset(pin, asset, cache):
+    url = f"https://github.com/{pin['repository']}/releases/download/{pin['tag']}/{asset['name']}"
+    target = cache / asset['name']
+    temporary = target.with_suffix(target.suffix + '.part')
+    try:
+        with urlopen(url, timeout=60) as response, temporary.open('wb') as output:
+            shutil.copyfileobj(response, output, length=1024 * 1024)
+        temporary.replace(target)
+    except HTTPError as exc:
+        if exc.code not in (401, 403, 404):
+            raise
+        # 公开发行包无需登录；私有仓库才使用可选的 GitHub CLI 认证。
+        if not shutil.which('gh'):
+            raise RuntimeError('Release inaccessible. If repository is private, install https://cli.github.com/ and run gh auth login') from exc
+        run('gh', 'auth', 'status')
+        run('gh', 'release', 'download', pin['tag'], '--repo', pin['repository'],
+            '--pattern', asset['name'], '--dir', cache, '--clobber')
+
+
 def main():
     if os.name != 'nt' or sys.version_info[:2] != (3, 11) or sys.maxsize < 2**32:
         raise RuntimeError('Use Windows 64-bit Python 3.11: https://www.python.org/downloads/windows/')
-    if not shutil.which('gh'):
-        raise RuntimeError('Install https://cli.github.com/ and run: gh auth login')
     if not (ROOT / 'data').exists() and shutil.disk_usage(ROOT).free < 6 * 1024**3:
         raise RuntimeError('At least 6 GB free disk space is required; 10 GB is recommended')
-    run('gh', 'auth', 'status')
     pin = json.loads((ROOT / 'deployment/resources.json').read_text(encoding='utf-8'))
     if sha(ROOT / 'config.json') != pin['config_sha256']:
         raise RuntimeError('Restore config.json to match this resource release before setup')
@@ -59,8 +77,7 @@ def main():
         print('Downloading/verifying ' + asset['name'] + '...', flush=True)
         archive = cache / asset['name']
         if not archive.exists() or sha(archive) != asset['sha256']:
-            run('gh', 'release', 'download', pin['tag'], '--repo', pin['repository'],
-                '--pattern', asset['name'], '--dir', cache, '--clobber')
+            download_asset(pin, asset, cache)
         if archive.stat().st_size != asset['bytes'] or sha(archive) != asset['sha256']:
             raise RuntimeError('Resource checksum mismatch: ' + asset['name'])
         restoring.write_text(json.dumps({'root': str(ROOT)}), encoding='utf-8')

@@ -1,6 +1,6 @@
 # 本地运行资源
 
-新电脑按仓库根目录 README 执行 `setup.cmd`。运行资源从私有 GitHub Release `runtime-v1` 获取，固定大小与 SHA256 见 `deployment/resources.json`。
+新电脑按仓库根目录 README 执行 `setup.cmd`。运行资源从GitHub Release `runtime-v1` 获取，固定大小与 SHA256 见 `deployment/resources.json`。
 
 资源包含匹配的 CPU embedding 模型、4109 篇三版本中文源文档、51391 个 chunk、预构建 FAISS 索引与向量、原始来源哈希清单和第三方来源文件。资源不含真实 `.env`、用户会话或开发运行日志。
 
