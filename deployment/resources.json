@@ -1,0 +1,14 @@
+{
+  "repository": "qiongliu95/DorisRAG",
+  "tag": "runtime-v1",
+  "assets": [
+    {
+      "name": "runtime-windows-v1.zip",
+      "bytes": 626952952,
+      "sha256": "b02d0b234121998cc30a96489b065d500c3f47431a92beca924455fc65d88bdd"
+    }
+  ],
+  "config_sha256": "f3bc55d5a41b029cdbd4d6f9551caf30866c979a4dc10fd94767ad410dbe8dd4",
+  "original_build_id": "c2774ec931ef-f3bc55d5a4",
+  "unpacked_bytes": 1426391221
+}

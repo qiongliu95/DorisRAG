@@ -1,64 +1,64 @@
 # DorisRAG
 
-基于本地 Apache Doris 中文官方文档的问答系统，支持版本范围、SQL/日志材料、多轮会话和可追溯引用。使用 Python/FastAPI、原生网页、BGE-base-zh-v1.5、FAISS、BM25 与 RRF。
+基于 Apache Doris 中文官方文档的本地问答系统，支持 4.x、3.x、2.1 文档、混合检索、多轮会话和来源引用。
 
-本目录是源码发布副本，不包含真实密钥、用户会话、运行日志、模型、原始文档或已构建索引。当前功能仍有未关闭缺陷，不能视为全部验收通过。现行产品约定与质量边界见 [项目文档](docs/README.md)。
+## 新电脑安装（Windows 10/11，64 位）
 
-## 仓库内容
+建议 16 GB 内存，至少预留 10 GB 磁盘。首次安装需要联网下载 Python 依赖与约 627 MB 运行资源；后续本地检索不需要重新下载。最终回答及部分复杂问题理解需要可用的兼容 LLM 接口。
 
-- `doris_rag/`、`ui/`：产品源码与页面。
-- `config.json`、依赖文件、`.env.example`、`start_v1.cmd`：运行配置与启动入口。
-- `tests/`、`eval/`：原测试、夹具、Gold和评测规则，保持原字节和断言。
-- `docs/`：现行说明；原先指向未公开历史产物的链接已标明“本地归档”。
-- `reports/round1_20261023/build_checks.json`及`run_status.json`：现有Web门禁直接读取的两份记录，不能作为普通报告删掉。它们只对应原活动构建，不代表新机器已通过验收。
-
-## 本地启动条件
-
-使用 Python 3.11；依赖参考 [requirements-lock.txt](requirements-lock.txt)。创建虚拟环境后按项目目录执行：
+1. 安装 [Python 3.11 x64](https://www.python.org/downloads/windows/)，安装时勾选 **Add python.exe to PATH**。安装 [GitHub CLI](https://cli.github.com/) 后重新打开终端。若使用下面的克隆命令，还需安装 [Git for Windows](https://git-scm.com/download/win)；使用源码 ZIP 则不需要 Git。
+2. 在 PowerShell 执行以下命令，浏览器中登录有此私有仓库访问权的 GitHub 账号：
 
 ```powershell
-python -m pip install -r requirements-lock.txt
-Copy-Item .env.example .env
+gh auth login
+gh repo clone qiongliu95/DorisRAG
+cd DorisRAG
+.\setup.cmd
 ```
 
-按所用兼容接口填写 `LLM_API_KEY / LLM_BASE_URL / LLM_MODEL`。复杂材料提取和关系识别也可能调用该模型，检索命令并不一律零模型费用。
+建议放在较短的本地路径（如 `C:\AI\DorisRAG`），避免过长的目录名。也可以从 GitHub 下载源码 ZIP 并解压，然后双击 `setup.cmd`。私有 Release 仍需要先执行 `gh auth login`。
 
-**首次克隆还不能直接问答。** 需要另备：
-1. `config.json`指定位置的原始Doris中文文档快照。
-2. `data/models/bge-base-zh-v1.5/`的完整匹配模型/tokenizer；当前配置只允许本地加载。
-3. `data/round1_20261023/`中的处理数据、manifest、完整活动构建和指针，以及与其一致的门禁记录。
+3. 首次安装可能需要较长时间，依赖安装和资源校验期间请保持窗口打开。等到窗口显示 **Runtime restoration and retrieval acceptance PASSED** 和 **READY**。脚本会建立 `.venv`、安装锁定依赖、下载匹配模型/文档/预构建索引、校验 SHA256，并自动修正新电脑的来源路径。无需自行寻找旧报告、手工搬模型或重算索引。不要在安装前修改 `config.json`。
+4. 用记事本打开安装时自动创建的 `.env`，填写自己的接口配置并保存：
 
-现有产物带原机器绝对来源路径；异地复制或重建需要核对路径、SHA、模型指纹和门禁。构建验收脚本还引用原始来源清单及模型下载元数据，尚无经验证的无历史资料一键部署流程。不要修改门禁为passed来绕过检查。[本地资源说明](docs/LOCAL_ASSETS.md)列出所需材料与现有耦合。
+```dotenv
+LLM_API_KEY=你的密钥
+LLM_BASE_URL=https://你的服务地址/v1
+LLM_MODEL=你的模型名称
+```
 
-资源就绪并经核对后：
+接口需兼容 OpenAI Chat Completions；地址按服务商要求填写。不要把真实 `.env` 提交到 GitHub。
+
+5. 双击 `start_v1.cmd`，保持窗口打开，在浏览器访问 **http://127.0.0.1:8765**。首次加载模型/检索器需要等待。退出时关闭该窗口或按 Ctrl+C。以后只需重复这一步。
+
+## 常见情况
+
+- `py -3.11` 找不到 Python：安装 Python 3.11 x64 并重新打开终端；使用该版本，不要随意改为其他版本。
+- 下载提示 404/无权限：运行 `gh auth status`，确认账号能访问 [私有运行资源](https://github.com/qiongliu95/DorisRAG/releases/tag/runtime-v1)。
+- 下载中断或安装失败：保留错误信息，重新运行 `setup.cmd`；完整且 SHA 匹配的压缩包会复用，损坏缓存重新下载。
+- `torch` 提示 DLL 加载失败：安装 Microsoft [Visual C++ x64 运行库](https://aka.ms/vs/17/release/vc_redist.x64.exe)，然后重新运行安装。
+- 依赖下载失败：确认新电脑能访问 PyPI 和 GitHub；安装窗口会保留具体错误。
+- 网页可以打开但回答提示模型配置错误：核对 `.env` 的三项配置、服务余额和模型可用性。安装验收不调用付费回答模型。
+- 安装后不要直接搬动整个目录。路径绑定当前安装目录；迁移到另一台电脑时重新下载源码并运行安装。
+- 重复安装会验证现有安装，不覆盖 `.env` 和用户会话。改过模型/数据/config 的开发目录应另建干净目录安装。
+
+## 安装验证的范围
+
+安装成功表示运行资源完整、模型可加载、真实向量与索引一致、三个文档版本检索及原文回读通过。它不表示所有回答正确，也不表示现有产品缺陷全部关闭。没有真实 API 配置时不会假称完成问答端到端验收。
+
+安装证据保存在 `data/round1_20261023/installation.json` 与 `reports/round1_20261023/build_checks.json`。模型、索引和文档通过私有 Release 分发，源码仓库不直接保存大文件和本地会话。
+
+## 开发与测试
+
+[项目文档](docs/README.md)、[资源说明](docs/LOCAL_ASSETS.md)、[评测规则](eval/README.md)、[回归约束](AGENTS.md)。
 
 ```powershell
-python -m doris_rag serve --port 8765
+.\.venv\Scripts\python.exe -m unittest discover -s tests -p test_generation_task_contract.py -v
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-或运行 `start_v1.cmd`，浏览器打开 http://127.0.0.1:8765 。仅供本地使用，当前没有公网鉴权部署方案。
+完整 discovery 中部分历史回放测试还依赖本地归档的评测输入/Trace；安装包提供产品运行资源，不将它们伪造为新机器验收。不要为获得绿色结果删除测试、改 Gold 或降低断言。
 
-## 测试与评测
+## 来源与许可
 
-完整回归入口保留：
-
-```powershell
-python -m unittest discover -s tests -v
-```
-
-部分测试依赖未公开的历史输入/Trace、原始文档或本地数据；纯源码克隆不保证完整discovery通过。具体依赖见 [测试资源说明](docs/LOCAL_ASSETS.md)，无需为获得绿色结果删除测试、改Gold或降低断言。
-
-可先运行不依赖历史运行材料的任务契约专项：
-
-```powershell
-python -m unittest discover -s tests -p test_generation_task_contract.py -v
-```
-
-真实模型验收、Ragas环境及评分须另按 [eval/README.md](eval/README.md) 与 [AGENTS.md](AGENTS.md) 的授权和规则执行。
-
-## 历史资料与许可
-
-[ARCHIVE.md](ARCHIVE.md)说明哪些历史/研究资料未进入仓库及其依赖边界。历史失败不因源码整理而关闭，也不沿用旧分数宣称当前通过。
-
-本次整理未添加开源许可证，代码授权方式待项目所有者确定；第三方文档、模型及题源各自遵循原有许可与来源要求。不要将此仓库名或Apache Doris资料来源理解为整个项目自动适用某个许可证。
-
+Doris 文档来自 Apache Doris 官网快照，发行包保留其 LICENSE；BGE-base-zh-v1.5 官方模型卡标注 MIT，随资源保留模型卡。来源分别见 [Apache Doris](https://github.com/apache/doris-website) 与 [BAAI 模型](https://huggingface.co/BAAI/bge-base-zh-v1.5)。本项目代码尚未指定开源许可证，仓库当前为私有。历史材料整理范围见 [ARCHIVE.md](ARCHIVE.md)。

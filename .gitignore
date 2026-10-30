@@ -46,3 +46,8 @@ Thumbs.db
 !/reports/round1_20261023/build_checks.json
 !/reports/round1_20261023/run_status.json
 
+
+# 安装缓存、迁移清单和第三方运行资源
+/.install-cache/
+/runtime-files.json
+/third_party/
